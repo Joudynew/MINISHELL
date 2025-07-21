@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 23:16:42 by joudafke          #+#    #+#             */
 /*   Updated: 2025/07/21 21:46:02 by joudafke         ###   ########.fr       */
+=======
+/*   By: ifadhli <ifadhli@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/15 23:16:42 by joudafke          #+#    #+#             */
+/*   Updated: 2025/07/17 02:59:58 by ifadhli          ###   ########.fr       */
+>>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +71,7 @@ void	add_token(t_token **token_list, t_token *new_token)
 	tmp->next = new_token;
 }
 
+<<<<<<< HEAD
 void	free_tokens(t_token **token_list)
 {
 	t_token	*tmp;
@@ -76,6 +84,18 @@ void	free_tokens(t_token **token_list)
 		{
 			free(tmp->value);
 		}
+=======
+void	free_tokens(t_token *token_list)
+{
+	t_token	*tmp;
+
+	while (token_list)
+	{
+		tmp = token_list;
+		token_list = token_list->next;
+		if (tmp->value)
+			free(tmp->value);
+>>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 		free(tmp);
 	}
 }

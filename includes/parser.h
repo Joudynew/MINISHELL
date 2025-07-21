@@ -6,7 +6,11 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:07:31 by joudafke          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/21 21:47:22 by joudafke         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/21 01:04:05 by joudafke         ###   ########.fr       */
+>>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +70,11 @@ int			is_space(char c);
 int			is_operator(char c);
 t_token		*create_token(t_token_type token_type, char *value);
 void		add_token(t_token **token_list, t_token *new_token);
+<<<<<<< HEAD
 void		free_tokens(t_token **token_list);
+=======
+void		free_tokens(t_token *token_list);
+>>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 
 int			handle_input_redirections(char *input, t_token **token_list, int i);
 int			handle_output_redirections(char *input, t_token **token_list,
@@ -98,7 +106,11 @@ char		*ft_strdup(const char *s);
 // void process_heredoc(t_ast_node *heredoc_node);
 void cleanup_heredocs(t_ast_node *node);
 void	create_rand(char *str);
+<<<<<<< HEAD
 // void preprocess_all_heredocs(t_ast_node *node, t_env *env_list, t_token **token, char *input);
 void	check_signal(int sig);
+=======
+void preprocess_all_heredocs(t_ast_node *node);
+>>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 
 #endif
