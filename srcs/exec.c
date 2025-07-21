@@ -6,7 +6,7 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:15:42 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/21 21:36:08 by joudafke         ###   ########.fr       */
+/*   Updated: 2025/07/21 22:30:25 by joudafke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,7 @@ int		execute_ast(t_ast_node *node, char **envp, t_env *env_list, t_token *token,
 			execute_ast(node->left, envp, env_list, token, input, first_node, true);
 			free_in_child(env_list, first_node, path);
 			free(input);
-			free_tokens(token);
+			free_tokens(&token);
 			exit(EXIT_FAILURE);
 		}
 		pid_right = fork();
@@ -314,7 +314,7 @@ int		execute_ast(t_ast_node *node, char **envp, t_env *env_list, t_token *token,
 			execute_ast(node->right, envp, env_list, token, input, first_node, true);
 			free_in_child(env_list, first_node, path);
 			free(input);
-			free_tokens(token);
+			free_tokens(&token);
 			exit(EXIT_FAILURE);
 		}
 		close(pipe_fd[0]);
@@ -371,7 +371,7 @@ int		execute_ast(t_ast_node *node, char **envp, t_env *env_list, t_token *token,
 			{
 				exec_builtin(node, env_list, NULL, token, input);
 				free_in_child(env_list, first_node, path);
-				free_tokens(token);
+				free_tokens(&token);
 				free(input);
 				exit(0);
 			}
@@ -386,14 +386,14 @@ int		execute_ast(t_ast_node *node, char **envp, t_env *env_list, t_token *token,
 				ft_putstr_fd("minishell: command not found: ", STDERR_FILENO);
 				ft_putendl_fd(node->args[0], STDERR_FILENO);
 				free_in_child(env_list, first_node, NULL);
-				free_tokens(token);
+				free_tokens(&token);
 				free(input);
 				exit(127);
 			}
 			execve(path, node->args, envp);
 			free_in_child(env_list, first_node, path);
 			perror("execve");
-			free_tokens(token);
+			free_tokens(&token);
 			free(input);
 			exit(EXIT_FAILURE);
 		}

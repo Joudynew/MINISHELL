@@ -6,7 +6,7 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 23:44:46 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/21 21:53:31 by joudafke         ###   ########.fr       */
+/*   Updated: 2025/07/21 22:29:30 by joudafke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	builtin_exit(t_env *env_list, t_ast_node *node, char *input, t_token *token
 	{	
 		free_ast(node);
 		free_list(env_list);
-		free_tokens(token);
+		free_tokens(&token);
 		free(input_for_free);
 		exit(0);
 	}
@@ -86,7 +86,7 @@ void	builtin_exit(t_env *env_list, t_ast_node *node, char *input, t_token *token
 		exit_code += 256;
 	free_ast(node);
 	free_list(env_list);
-	free_tokens(token);
+	free_tokens(&token);
 	free(input_for_free);	
 	exit(exit_code);
 }
