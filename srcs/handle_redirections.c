@@ -6,11 +6,7 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:59:41 by joudafke          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2025/07/21 21:48:33 by joudafke         ###   ########.fr       */
-=======
-/*   Updated: 2025/07/21 01:03:37 by joudafke         ###   ########.fr       */
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +17,11 @@ pid_t g_heredoc_interrupted = 0;
 
 void	sigint_heredoc_handler(int sig)
 {
-<<<<<<< HEAD
 	(void)sig;
 	g_heredoc_interrupted = 1;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_done = 1;
-=======
-	write(2, "ici", 3);
-	(void)sig;
-	g_heredoc_interrupted = 1;
-	rl_replace_line("", 0);
-	rl_done = 1;
-	rl_cleanup_after_signal();
-    rl_free_line_state();
-	write(STDOUT_FILENO, "\n", 1);
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 }
 
 void	read_heredoc_lines(int fd_input, char *delimiter)
@@ -48,10 +33,7 @@ void	read_heredoc_lines(int fd_input, char *delimiter)
 	while (!g_heredoc_interrupted)
 	{
 		line = readline("heredoc> ");
-<<<<<<< HEAD
 		// line = readline_stderr("heredoc> ");
-=======
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 		if (!line)
         {
             // if (line)
@@ -62,10 +44,7 @@ void	read_heredoc_lines(int fd_input, char *delimiter)
         }
 		if (ft_strcmp(line, delimiter) == 0)
 		{
-<<<<<<< HEAD
 			printf("HERE\n");
-=======
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 			free(line);
 			break ;
 		}
@@ -82,21 +61,13 @@ void	read_heredoc_lines(int fd_input, char *delimiter)
 	}
 }
 
-<<<<<<< HEAD
 void process_heredoc(t_ast_node *heredoc_node, t_env *env_list, t_token **token, char *input, t_ast_node *node)
-=======
-void process_heredoc(t_ast_node *heredoc_node, t_env *env_list, t_token *token, char *input)
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 {
 	char rand_name[33];
 	int fd_input;
 	pid_t	pid_heredoc;
 	int	status;
-<<<<<<< HEAD
 	
-=======
-
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 	if (!heredoc_node)
 	{
 		fprintf(stderr, "Erreur: heredoc_node est NULL\n");
@@ -109,10 +80,7 @@ void process_heredoc(t_ast_node *heredoc_node, t_env *env_list, t_token *token, 
 		perror("ft_strdup");
 		exit(EXIT_FAILURE);
 	}
-<<<<<<< HEAD
 	g_heredoc_interrupted = 0;
-=======
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 	pid_heredoc = fork();
 	if (pid_heredoc == -1)
 	{
@@ -121,12 +89,8 @@ void process_heredoc(t_ast_node *heredoc_node, t_env *env_list, t_token *token, 
 	}
 	if (pid_heredoc == 0)
 	{
-<<<<<<< HEAD
 		signal(SIGINT, sigint_heredoc_handler);
 		signal(SIGQUIT, SIG_IGN);
-=======
-		
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 		fd_input = open(rand_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd_input == -1)
 		{
@@ -136,35 +100,18 @@ void process_heredoc(t_ast_node *heredoc_node, t_env *env_list, t_token *token, 
 			free(input);
 			exit(EXIT_FAILURE);
 		}
-<<<<<<< HEAD
 		read_heredoc_lines(fd_input, heredoc_node->filename); // filename contient le délimiteur
 		close(fd_input);
 		free_in_child(env_list, node, NULL);
-=======
-		if (!signal(SIGINT, sigint_heredoc_handler))
-		{
-			exit(0);
-		}
-		signal(SIGINT, SIG_DFL);
-		read_heredoc_lines(fd_input, heredoc_node->filename); // filename contient le délimiteur
-		close(fd_input);
-		write(2, "ici\n", 4);
-		free_in_child(env_list, heredoc_node, NULL);
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 		free_tokens(token);
 		free(input);
 		exit(0);
 	}
 	else
 	{
-<<<<<<< HEAD
 		signal(SIGINT, SIG_IGN); // Ignore SIGINT pendant attente
 		waitpid(pid_heredoc, &status, 0);
 		signal(SIGINT, check_signal);
-=======
-		waitpid(pid_heredoc, &status, 0);
-
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
         if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
         {
             unlink(rand_name);
@@ -215,11 +162,7 @@ void process_heredoc(t_ast_node *heredoc_node, t_env *env_list, t_token *token, 
 // 	close(fd_input);
 // }
 
-<<<<<<< HEAD
 void preprocess_all_heredocs(t_ast_node *node, t_env *env_list, t_token **token, char *input)
-=======
-void preprocess_all_heredocs(t_ast_node *node)
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 {
 	if (!node)
 		return;
@@ -229,21 +172,12 @@ void preprocess_all_heredocs(t_ast_node *node)
 		while (tmp)
 		{
 			if (tmp->redir_type == HEREDOC)
-<<<<<<< HEAD
 				process_heredoc(tmp, env_list, token, input, node);
 			tmp = tmp->right;
 		}
 	}
 	preprocess_all_heredocs(node->left, env_list, token, input);
 	preprocess_all_heredocs(node->right, env_list, token, input);
-=======
-				process_heredoc(tmp, NULL, NULL, NULL);
-			tmp = tmp->right;
-		}
-	}
-	preprocess_all_heredocs(node->left);
-	preprocess_all_heredocs(node->right);
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 }
 
 

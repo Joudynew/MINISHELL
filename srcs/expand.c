@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 23:43:07 by joudafke          #+#    #+#             */
 /*   Updated: 2025/07/21 19:48:32 by joudafke         ###   ########.fr       */
-=======
-/*   By: ifadhli <ifadhli@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 23:43:07 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/17 02:32:30 by ifadhli          ###   ########.fr       */
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +62,11 @@ t_env	*create_env_list(char **envp)
 	t_env	*env_list;
 
 	env_list = NULL;
-<<<<<<< HEAD
 	i = -1;
 	while (envp[++i])
 	{
 		j = -1;
 		while (envp[i][++j])
-=======
-	i = 0;
-	while (envp[i])
-	{
-		j = 0;
-		while (envp[i][j])
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 		{
 			if (envp[i][j] == '=')
 			{
@@ -91,15 +76,8 @@ t_env	*create_env_list(char **envp)
 				free(name);
 				free(value);
 				break ;
-<<<<<<< HEAD
 			};
 		}
-=======
-			}
-			j++;
-		}
-		i++;
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 	}
 	return (env_list);
 }

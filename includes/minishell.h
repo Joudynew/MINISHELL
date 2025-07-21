@@ -6,11 +6,7 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:19:51 by ibarbouc          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2025/07/21 21:39:41 by joudafke         ###   ########.fr       */
-=======
-/*   Updated: 2025/07/21 01:04:14 by joudafke         ###   ########.fr       */
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +101,9 @@ t_env				*free_list(t_env *a);
 int					execute_ast(t_ast_node *node, char **envp, t_env *env_list,
 						t_token *token, char *input, t_ast_node *first_node, bool is_pipe);
 char				*ft_strjoin2(char const *s1, char const *s2);
-<<<<<<< HEAD
 void process_heredoc(t_ast_node *heredoc_node, t_env *env_list, t_token **token, char *input, t_ast_node *node);
 void	free_in_child(t_env *env_list, t_ast_node *node, char *path);
 void preprocess_all_heredocs(t_ast_node *node, t_env *env_list, t_token **token, char *input);
-=======
-void	free_in_child(t_env *env_list, t_ast_node *node, char *path);
-void process_heredoc(t_ast_node *heredoc_node, t_env *env_list, t_token *token, char *input);
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 
 
 #endif

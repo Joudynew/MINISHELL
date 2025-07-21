@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: ibarbouc <ibarbouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 23:44:55 by joudafke          #+#    #+#             */
 /*   Updated: 2025/07/13 15:37:18 by ibarbouc         ###   ########.fr       */
-=======
-/*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 23:44:55 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/21 00:49:40 by joudafke         ###   ########.fr       */
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +33,6 @@ t_env	*free_list(t_env *a)
 		next_node = a->next;
 		free(a->name);
 		free(a->value);
-<<<<<<< HEAD
-=======
-		free(a->env);
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 		free(a);
 		a = next_node;
 	}

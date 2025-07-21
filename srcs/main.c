@@ -6,11 +6,7 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 23:44:21 by joudafke          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2025/07/21 21:40:21 by joudafke         ###   ########.fr       */
-=======
-/*   Updated: 2025/07/21 01:09:01 by joudafke         ###   ########.fr       */
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,10 +151,7 @@ int	main(int ac, char **av, char **envp)
 		input = expanded;
 
 		tokens = tokenize(input, 0);
-<<<<<<< HEAD
 		printf("TOKENS = %s\n", tokens->value);
-=======
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 		tokens_head = tokens;
 
 		ast = parse_pipeline(&tokens);
@@ -168,12 +161,8 @@ int	main(int ac, char **av, char **envp)
 			continue;
 		}
 
-<<<<<<< HEAD
 
 		preprocess_all_heredocs(ast, env_list, &tokens_head, input);
-=======
-		preprocess_all_heredocs(ast);
->>>>>>> b1e7a0598a3d92c610b7ed95730b1919c8a37583
 		execute_ast(ast, envp, env_list, tokens_head, input, ast, false);
 		cleanup_heredocs(ast);
 		cleanup_shell(tokens_head, ast, input);
