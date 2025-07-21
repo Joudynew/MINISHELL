@@ -6,7 +6,7 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:59:41 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/20 21:37:56 by joudafke         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:48:33 by joudafke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,11 @@ pid_t g_heredoc_interrupted = 0;
 
 void	sigint_heredoc_handler(int sig)
 {
-	write(2, "ici", 3);
 	(void)sig;
 	g_heredoc_interrupted = 1;
+	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_done = 1;
-	rl_cleanup_after_signal();
-    rl_free_line_state();
-	write(STDOUT_FILENO, "\n", 1);
 }
 
 void	read_heredoc_lines(int fd_input, char *delimiter)
@@ -36,6 +33,7 @@ void	read_heredoc_lines(int fd_input, char *delimiter)
 	while (!g_heredoc_interrupted)
 	{
 		line = readline("heredoc> ");
+		// line = readline_stderr("heredoc> ");
 		if (!line)
         {
             // if (line)
@@ -46,6 +44,7 @@ void	read_heredoc_lines(int fd_input, char *delimiter)
         }
 		if (ft_strcmp(line, delimiter) == 0)
 		{
+			printf("HERE\n");
 			free(line);
 			break ;
 		}
@@ -62,13 +61,13 @@ void	read_heredoc_lines(int fd_input, char *delimiter)
 	}
 }
 
-void process_heredoc(t_ast_node *heredoc_node)
+void process_heredoc(t_ast_node *heredoc_node, t_env *env_list, t_token **token, char *input, t_ast_node *node)
 {
 	char rand_name[33];
 	int fd_input;
 	pid_t	pid_heredoc;
 	int	status;
-
+	
 	if (!heredoc_node)
 	{
 		fprintf(stderr, "Erreur: heredoc_node est NULL\n");
@@ -81,6 +80,7 @@ void process_heredoc(t_ast_node *heredoc_node)
 		perror("ft_strdup");
 		exit(EXIT_FAILURE);
 	}
+	g_heredoc_interrupted = 0;
 	pid_heredoc = fork();
 	if (pid_heredoc == -1)
 	{
@@ -89,27 +89,29 @@ void process_heredoc(t_ast_node *heredoc_node)
 	}
 	if (pid_heredoc == 0)
 	{
-		
+		signal(SIGINT, sigint_heredoc_handler);
+		signal(SIGQUIT, SIG_IGN);
 		fd_input = open(rand_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd_input == -1)
 		{
 			perror(rand_name);
+			free_in_child(env_list, heredoc_node, NULL);
+			free_tokens(token);
+			free(input);
 			exit(EXIT_FAILURE);
 		}
-		if (!signal(SIGINT, sigint_heredoc_handler))
-		{
-			exit(0);
-		}
-		signal(SIGINT, SIG_DFL);
 		read_heredoc_lines(fd_input, heredoc_node->filename); // filename contient le délimiteur
 		close(fd_input);
-		write(2, "ici\n", 4);
+		free_in_child(env_list, node, NULL);
+		free_tokens(token);
+		free(input);
 		exit(0);
 	}
 	else
 	{
+		signal(SIGINT, SIG_IGN); // Ignore SIGINT pendant attente
 		waitpid(pid_heredoc, &status, 0);
-
+		signal(SIGINT, check_signal);
         if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
         {
             unlink(rand_name);
@@ -160,7 +162,7 @@ void process_heredoc(t_ast_node *heredoc_node)
 // 	close(fd_input);
 // }
 
-void preprocess_all_heredocs(t_ast_node *node)
+void preprocess_all_heredocs(t_ast_node *node, t_env *env_list, t_token **token, char *input)
 {
 	if (!node)
 		return;
@@ -170,12 +172,12 @@ void preprocess_all_heredocs(t_ast_node *node)
 		while (tmp)
 		{
 			if (tmp->redir_type == HEREDOC)
-				process_heredoc(tmp);
+				process_heredoc(tmp, env_list, token, input, node);
 			tmp = tmp->right;
 		}
 	}
-	preprocess_all_heredocs(node->left);
-	preprocess_all_heredocs(node->right);
+	preprocess_all_heredocs(node->left, env_list, token, input);
+	preprocess_all_heredocs(node->right, env_list, token, input);
 }
 
 

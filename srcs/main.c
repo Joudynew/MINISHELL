@@ -6,7 +6,7 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 23:44:21 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/20 21:41:57 by joudafke         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:40:21 by joudafke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ int	main(int ac, char **av, char **envp)
 		input = expanded;
 
 		tokens = tokenize(input, 0);
+		printf("TOKENS = %s\n", tokens->value);
 		tokens_head = tokens;
 
 		ast = parse_pipeline(&tokens);
@@ -160,7 +161,8 @@ int	main(int ac, char **av, char **envp)
 			continue;
 		}
 
-		preprocess_all_heredocs(ast);
+
+		preprocess_all_heredocs(ast, env_list, &tokens_head, input);
 		execute_ast(ast, envp, env_list, tokens_head, input, ast, false);
 		cleanup_heredocs(ast);
 		cleanup_shell(tokens_head, ast, input);

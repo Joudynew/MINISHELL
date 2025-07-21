@@ -6,7 +6,7 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:07:31 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/20 20:45:52 by joudafke         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:47:22 by joudafke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			is_space(char c);
 int			is_operator(char c);
 t_token		*create_token(t_token_type token_type, char *value);
 void		add_token(t_token **token_list, t_token *new_token);
-void		free_tokens(t_token *token_list);
+void		free_tokens(t_token **token_list);
 
 int			handle_input_redirections(char *input, t_token **token_list, int i);
 int			handle_output_redirections(char *input, t_token **token_list,
@@ -95,9 +95,10 @@ char		*ft_strdup(const char *s);
 // int			ft_strlen(const char *s);
 // char		*ft_substr(const char *s, unsigned int start, int len);
 
-void process_heredoc(t_ast_node *heredoc_node);
+// void process_heredoc(t_ast_node *heredoc_node);
 void cleanup_heredocs(t_ast_node *node);
 void	create_rand(char *str);
-void preprocess_all_heredocs(t_ast_node *node);
+// void preprocess_all_heredocs(t_ast_node *node, t_env *env_list, t_token **token, char *input);
+void	check_signal(int sig);
 
 #endif

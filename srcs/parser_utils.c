@@ -6,7 +6,7 @@
 /*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:56:02 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/20 17:06:23 by joudafke         ###   ########.fr       */
+/*   Updated: 2025/07/21 19:42:56 by joudafke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_ast_node	*create_ast_node(t_node_type node_type)
 	new_node->right = NULL;
 	new_node->redirections = NULL;
 	new_node->filename = NULL;
+	new_node->heredoc_tmpfile = NULL;
+	new_node->redir_type = 0;
 	return (new_node);
 }
 
@@ -68,6 +70,8 @@ void	free_ast(t_ast_node *node)
 	}
 	if (node->filename)
 		free(node->filename);
+	if (node->heredoc_tmpfile)  // Add this
+        free(node->heredoc_tmpfile);
 	if(node->redirections)
 		free_ast(node->redirections);
 	free_ast(node->left);

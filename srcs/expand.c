@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ifadhli <ifadhli@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 23:43:07 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/17 02:32:30 by ifadhli          ###   ########.fr       */
+/*   Updated: 2025/07/21 19:48:32 by joudafke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ t_env	*create_env_list(char **envp)
 	t_env	*env_list;
 
 	env_list = NULL;
-	i = 0;
-	while (envp[i])
+	i = -1;
+	while (envp[++i])
 	{
-		j = 0;
-		while (envp[i][j])
+		j = -1;
+		while (envp[i][++j])
 		{
 			if (envp[i][j] == '=')
 			{
@@ -76,10 +76,8 @@ t_env	*create_env_list(char **envp)
 				free(name);
 				free(value);
 				break ;
-			}
-			j++;
+			};
 		}
-		i++;
 	}
 	return (env_list);
 }

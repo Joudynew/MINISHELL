@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ifadhli <ifadhli@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joudafke <joudafke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 23:16:42 by joudafke          #+#    #+#             */
-/*   Updated: 2025/07/17 02:59:58 by ifadhli          ###   ########.fr       */
+/*   Updated: 2025/07/21 21:46:02 by joudafke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,18 @@ void	add_token(t_token **token_list, t_token *new_token)
 	tmp->next = new_token;
 }
 
-void	free_tokens(t_token *token_list)
+void	free_tokens(t_token **token_list)
 {
 	t_token	*tmp;
-
-	while (token_list)
+	t_token *ok = *token_list;
+	while (ok)
 	{
-		tmp = token_list;
-		token_list = token_list->next;
+		tmp = ok;
+		ok = ok->next;
 		if (tmp->value)
+		{
 			free(tmp->value);
+		}
 		free(tmp);
 	}
 }
